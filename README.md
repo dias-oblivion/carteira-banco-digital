@@ -7,7 +7,7 @@ Esse projeto é uma implementação de um dos desafios do PicPay para uma vaga d
 
 ### 🧾 Diagrama de sequência:
 
-[Fluxo de transação](./arquitetura/Diagrama%20fluxo%20de%20transação.pdf)
+[Fluxo de transação](./api/docs/Diagrama%20fluxo%20de%20transação.pdf)
 
 ### 🛠 Tecnologias utilizadas:
 

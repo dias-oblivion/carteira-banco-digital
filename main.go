@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/dias-oblivion/PicPay-Simplificado/api/router"
 	"github.com/dias-oblivion/PicPay-Simplificado/config"
-	"github.com/dias-oblivion/PicPay-Simplificado/router"
 )
 
 func main() {

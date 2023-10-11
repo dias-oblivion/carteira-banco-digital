@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/dias-oblivion/PicPay-Simplificado/handler"
+	"github.com/dias-oblivion/PicPay-Simplificado/api/handler"
 	"github.com/gin-gonic/gin"
 )
 
