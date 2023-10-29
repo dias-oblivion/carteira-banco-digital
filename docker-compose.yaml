@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # Container for PostgreSQL database
   postgres:
     image: postgres:latest
     environment:
@@ -16,7 +15,6 @@ services:
       timeout: 60s
       retries: 5
 
-  # Container for running migrations
   migrate:
     image: migrate/migrate:latest
     command: ["-path", "/app/migrations", "-database", "postgres://admin:admin@postgres:5432/picpay?sslmode=disable", "up"]
@@ -26,7 +24,6 @@ services:
       postgres:
         condition: service_healthy  # This waits until the 'postgres' service is healthy
 
-  # Container for the Golang API backend
   api:
     image: golang:latest
     working_dir: /app

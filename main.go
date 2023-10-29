@@ -1,23 +1,21 @@
 package main
 
 import (
-	"github.com/dias-oblivion/PicPay-Simplificado/api/router"
-	"github.com/dias-oblivion/PicPay-Simplificado/config"
+	"fmt"
+	"log"
+
+	"github.com/dias-oblivion/PicPay-Simplificado/api"
+	"github.com/dias-oblivion/PicPay-Simplificado/database"
 )
 
 func main() {
-
-	// init main logger
-	logger := config.GetLogger("main")
-
-	// init configs
-	configError := config.Init()
-
-	if configError != nil {
-		logger.Errorf("error when initializing configs: %v", configError)
-		return
+	storage, err := database.NewPostgresStorage()
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	// router initialize
-	router.InitRouter()
+	fmt.Printf("%+v", storage)
+
+	server := api.NewAPIServer(":8081", storage)
+	server.Start()
 }
