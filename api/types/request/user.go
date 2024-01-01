@@ -1,6 +1,6 @@
 package types
 
-type CreateUserRequest struct {
+type CreateUser struct {
 	Name     string `json:"name" binding:"required"`
 	Email    string `json:"email" binding:"required"`
 	Document string `json:"document" binding:"required"`

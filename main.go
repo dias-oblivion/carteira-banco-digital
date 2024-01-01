@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/dias-oblivion/PicPay-Simplificado/api"
@@ -9,13 +8,11 @@ import (
 )
 
 func main() {
-	storage, err := database.NewPostgresStorage()
+	err := database.NewPostgresStorage()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%+v", storage)
-
-	server := api.NewAPIServer(":8081", storage)
+	server := api.NewAPIServer(":8081")
 	server.Start()
 }
