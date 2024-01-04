@@ -24,14 +24,14 @@ services:
       postgres:
         condition: service_healthy  # This waits until the 'postgres' service is healthy
 
-  api:
-    image: golang:latest
-    working_dir: /app
-    volumes:
-      - ./:/app
-    command: go run main.go
-    ports:
-      - "8082:8082"
-    depends_on:
-      - postgres
-      - migrate
+  # api:
+  #   image: golang:latest
+  #   working_dir: /app
+  #   volumes:
+  #     - ./:/app
+  #   command: go run main.go
+  #   ports:
+  #     - "8082:8082"
+  #   depends_on:
+  #     - postgres
+  #     - migrate

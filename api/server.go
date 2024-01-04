@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/dias-oblivion/PicPay-Simplificado/api/routes"
+	"github.com/dias-oblivion/PicPay-Simplificado/api/controllers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,7 +18,9 @@ func NewAPIServer(port string) *APIServer {
 func (s *APIServer) Start() {
 	router := gin.Default()
 
-	router.POST("/user", routes.CreateUser)
+	user := controllers.User{}
+
+	router.POST("/user", user.CreateUser)
 
 	// router.GET("/transactions/history")
 

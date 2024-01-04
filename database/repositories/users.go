@@ -1,4 +1,4 @@
-package services
+package repositories
 
 import (
 	request "github.com/dias-oblivion/PicPay-Simplificado/api/types/request"
@@ -7,7 +7,7 @@ import (
 
 type User struct{}
 
-func CreateUser(user request.CreateUser) (userId int, err error) {
+func (User) CreateUser(user request.CreateUser) (userId int, err error) {
 	query := `INSERT INTO users
 		(name, email, document, password, role, balance, created_at)
 	VALUES

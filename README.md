@@ -9,6 +9,13 @@ Esse projeto é uma implementação de um dos desafios do PicPay para uma vaga d
 
 [Fluxo de transação](./api/docs/Diagrama%20fluxo%20de%20transação.pdf)
 
+### Funcionalides:
+
+- Cadastro de novos usuários "lojistas" e "usuários comuns";
+- Usuários podem fazer login na aplicação;
+- Usuários comuns podem realizar transferências;
+- O sistema deve exibir o histórico de transações e o saldo atual do usuário;
+
 ### 🛠 Tecnologias utilizadas:
 
 ###  Frontend:
