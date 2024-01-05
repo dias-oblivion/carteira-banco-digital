@@ -18,11 +18,16 @@ func NewAPIServer(port string) *APIServer {
 func (s *APIServer) Start() {
 	router := gin.Default()
 
+	public := router.Group("/api/v1")
+	private := router.Group("/api/v1").Use(AuthMiddleware())
+
 	user := controllers.User{}
 
-	router.POST("/user", user.CreateUser)
+	// Public Routes
+	public.POST("/login", user.Login)
 
-	// router.GET("/transactions/history")
+	// Private Routes
+	private.POST("/user", user.CreateUser)
 
 	router.Run(s.port)
 }

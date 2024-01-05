@@ -5,7 +5,7 @@ Esse projeto é uma implementação de um dos desafios do PicPay para uma vaga d
 ### 🕵️‍♂️ Link para o desafio:
 [Desafio backend PicPay](https://github.com/PicPay/picpay-desafio-backend)
 
-### 🧾 Diagrama de sequência:
+### 🧾 Diagrama de sequência do fluxo de transação:
 
 [Fluxo de transação](./api/docs/Diagrama%20fluxo%20de%20transação.pdf)
 

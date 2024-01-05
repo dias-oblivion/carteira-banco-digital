@@ -25,3 +25,19 @@ func (User) CreateUser(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{"id": userId})
 }
+
+func (User) Login(ctx *gin.Context) {
+	var credentials request.Login
+	if err := ctx.ShouldBindJSON(&credentials); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	token, err := services.User{}.Login(credentials)
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"token": token})
+}
