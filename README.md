@@ -19,10 +19,13 @@ Esse projeto é uma implementação de um dos desafios do PicPay para uma vaga d
 ### 🛠 Tecnologias utilizadas:
 
 ###  Frontend:
-- [Next JS](https://nextjs.org/) ~ Framework React
-- [Tailwind CSS](https://tailwindcss.com/) ~ Estilização
-- [Redux Toolkit](https://redux-toolkit.js.org/) ~ Controle de estados
-- [React-i18next](https://react.i18next.com/) ~ Regionalização do conteúdo em texto
+- [Next JS](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [React-i18next](https://react.i18next.com/)
 
 ### Backend:
- - [Go](https://go.dev/) ~ 
+ - [Go](https://go.dev/)
+ - [Gin](https://gin-gonic.com)
+ - [Bcrypt](https://pkg.go.dev/golang.org/x/crypto/bcrypt)
+ - [JWT-Go](https://github.com/dgrijalva/jwt-go)

@@ -22,12 +22,14 @@ func (s *APIServer) Start() {
 	private := router.Group("/api/v1").Use(AuthMiddleware())
 
 	user := controllers.User{}
+	transfer := controllers.Transfer{}
 
 	// Public Routes
 	public.POST("/login", user.Login)
+	public.POST("/user", user.CreateUser)
 
 	// Private Routes
-	private.POST("/user", user.CreateUser)
+	private.POST("/transfer", transfer.TransferBalance)
 
 	router.Run(s.port)
 }
