@@ -1,4 +1,4 @@
-module github.com/dias-oblivion/PicPay-Simplificado
+module github.com/dias-oblivion/carteira-banco-digital
 
 go 1.21.1
 

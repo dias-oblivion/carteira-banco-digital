@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/dias-oblivion/PicPay-Simplificado/api/controllers"
+	"github.com/dias-oblivion/carteira-banco-digital/api/controllers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,11 +25,12 @@ func (s *APIServer) Start() {
 	transfer := controllers.Transfer{}
 
 	// Public Routes
-	public.POST("/login", user.Login)
-	public.POST("/user", user.CreateUser)
+	public.POST("/login", user.PostLogin)
+	public.POST("/user", user.PostCreateUser)
 
 	// Private Routes
-	private.POST("/transfer", transfer.TransferBalance)
+	private.POST("/transfer", transfer.PostTransferBalance)
+	private.GET("/transfers", transfer.GetTransfersHistoryList)
 
 	router.Run(s.port)
 }

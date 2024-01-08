@@ -1,15 +1,32 @@
 package services
 
 import (
-	request "github.com/dias-oblivion/PicPay-Simplificado/api/types/request"
-	"github.com/dias-oblivion/PicPay-Simplificado/api/utils"
-	"github.com/dias-oblivion/PicPay-Simplificado/database/repositories"
+	"errors"
+
+	request "github.com/dias-oblivion/carteira-banco-digital/api/types/request"
+	"github.com/dias-oblivion/carteira-banco-digital/api/utils"
+	"github.com/dias-oblivion/carteira-banco-digital/database/repositories"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct{}
 
 func (User) CreateUser(user request.CreateUser) (userId int, err error) {
+
+	userRegistered, err := repositories.User{}.GetUserByEmail(user.Email)
+
+	if err != nil {
+		return 0, err
+	}
+
+	if userRegistered.Email == user.Email {
+		return 0, errors.New("error: email already registered")
+	}
+
+	if userRegistered.Document == user.Document {
+		return 0, errors.New("error: document number already registered")
+	}
+
 	password := []byte(user.Password)
 	hashedPassword, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
 	if err != nil {
@@ -34,7 +51,7 @@ func (User) Login(credentials request.Login) (token string, err error) {
 		return
 	}
 
-	token, err = utils.CreateJWTToken(user.ID, user.Email)
+	token, err = utils.CreateJWTToken(user.ID, user.Email, user.Role)
 
 	if err != nil {
 		return

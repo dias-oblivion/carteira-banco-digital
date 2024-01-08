@@ -1,9 +1,9 @@
 package repositories
 
 import (
-	request "github.com/dias-oblivion/PicPay-Simplificado/api/types/request"
-	"github.com/dias-oblivion/PicPay-Simplificado/database"
-	"github.com/dias-oblivion/PicPay-Simplificado/database/models"
+	request "github.com/dias-oblivion/carteira-banco-digital/api/types/request"
+	"github.com/dias-oblivion/carteira-banco-digital/database"
+	"github.com/dias-oblivion/carteira-banco-digital/database/models"
 )
 
 type User struct{}

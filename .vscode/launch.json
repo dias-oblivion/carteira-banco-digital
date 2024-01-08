@@ -11,7 +11,7 @@
             "mode": "auto",
             "program": "${workspaceFolder}",
             "env": {
-                "API_SECRET": "picpay-oblivion"
+                "API_SECRET": "dias-oblivion"
             }
         }
     ]

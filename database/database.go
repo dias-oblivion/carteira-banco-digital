@@ -9,7 +9,7 @@ import (
 var DB *sql.DB
 
 func NewPostgresStorage() error {
-	db, err := sql.Open("postgres", "postgres://admin:admin@localhost:5432/picpay?sslmode=disable")
+	db, err := sql.Open("postgres", "postgres://admin:admin@localhost:5432/postgres?sslmode=disable")
 	if err != nil {
 		return err
 	}

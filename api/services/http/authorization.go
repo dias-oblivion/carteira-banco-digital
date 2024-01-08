@@ -3,7 +3,7 @@ package services
 import (
 	"net/http"
 
-	"github.com/dias-oblivion/PicPay-Simplificado/api/utils"
+	"github.com/dias-oblivion/carteira-banco-digital/api/utils"
 )
 
 type Authorization struct{}

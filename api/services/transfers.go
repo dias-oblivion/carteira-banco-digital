@@ -4,14 +4,15 @@ import (
 	"errors"
 	"fmt"
 
-	services "github.com/dias-oblivion/PicPay-Simplificado/api/services/http"
-	request "github.com/dias-oblivion/PicPay-Simplificado/api/types/request"
-	"github.com/dias-oblivion/PicPay-Simplificado/database/repositories"
+	services "github.com/dias-oblivion/carteira-banco-digital/api/services/http"
+	request "github.com/dias-oblivion/carteira-banco-digital/api/types/request"
+	types "github.com/dias-oblivion/carteira-banco-digital/api/types/response"
+	"github.com/dias-oblivion/carteira-banco-digital/database/repositories"
 )
 
 type Transfer struct{}
 
-func (Transfer) TransferBalance(userID int64, transfer request.Transfer) error {
+func (Transfer) TransferBalance(userID int64, transfer request.TransferRequest) error {
 
 	authorization, err := services.Authorization{}.CheckExternalAuthorization()
 
@@ -32,4 +33,12 @@ func (Transfer) TransferBalance(userID int64, transfer request.Transfer) error {
 	}
 
 	return nil
+}
+
+func (Transfer) GetTransfersHistoryList(userID int64) (types.TransferHistoryResponse, error) {
+	transfersHistory, err := repositories.Transfer{}.GetTransfersHistory(userID)
+	if err != nil {
+		return
+	}
+
 }

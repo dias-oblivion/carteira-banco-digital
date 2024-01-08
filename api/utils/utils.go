@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/dias-oblivion/PicPay-Simplificado/api/config"
+	"github.com/dias-oblivion/carteira-banco-digital/api/config"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -28,10 +28,11 @@ func CheckPassword(password, hashedPassword string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
 
-func CreateJWTToken(userId int64, userEmail string) (string, error) {
+func CreateJWTToken(userId int64, userEmail, userRole string) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["userId"] = userId
 	claims["userEmail"] = userEmail
+	claims["role"] = userRole
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString([]byte(config.API_SECRET))
@@ -55,7 +56,7 @@ func VerifyJWTToken(token string) error {
 	return err
 }
 
-func GetCurrentUserID(ctx *gin.Context) (int64, error) {
+func GetCurrentUserInfo(ctx *gin.Context) (UserInfo, error) {
 
 	bearerToken := strings.Split(ctx.Request.Header.Get("Authorization"), " ")[1]
 
@@ -66,17 +67,21 @@ func GetCurrentUserID(ctx *gin.Context) (int64, error) {
 		return []byte(os.Getenv("API_SECRET")), nil
 	})
 	if err != nil {
-		return 0, err
+		return UserInfo{}, err
 	}
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if ok && token.Valid {
-		id, err := strconv.ParseUint(fmt.Sprintf("%.0f", claims["userId"]), 10, 32)
+		userId, err := strconv.ParseInt(fmt.Sprintf("%v", claims["userId"]), 10, 64)
 		if err != nil {
-			return 0, err
+			return UserInfo{}, err
 		}
-		return int64(id), nil
+		return UserInfo{
+			ID:    userId,
+			Email: string(fmt.Sprintf("%v", claims["userEmail"])),
+			Role:  string(fmt.Sprintf("%v", claims["userRole"])),
+		}, nil
 	}
-	return 0, nil
+	return UserInfo{}, nil
 }
 
 func GetResponseJson(response *http.Response, target interface{}) error {

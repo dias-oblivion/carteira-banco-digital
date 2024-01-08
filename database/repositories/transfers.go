@@ -3,13 +3,14 @@ package repositories
 import (
 	"errors"
 
-	request "github.com/dias-oblivion/PicPay-Simplificado/api/types/request"
-	"github.com/dias-oblivion/PicPay-Simplificado/database"
+	request "github.com/dias-oblivion/carteira-banco-digital/api/types/request"
+	"github.com/dias-oblivion/carteira-banco-digital/database"
+	"github.com/dias-oblivion/carteira-banco-digital/database/models"
 )
 
 type Transfer struct{}
 
-func (Transfer) TransferBalance(userID int64, transfer request.Transfer) error {
+func (Transfer) TransferBalance(userID int64, transfer request.TransferRequest) error {
 	sqlTransaction, err := database.DB.Begin()
 	if err != nil {
 		return err
@@ -55,4 +56,39 @@ func (Transfer) TransferBalance(userID int64, transfer request.Transfer) error {
 	}
 
 	return nil
+}
+
+func (Transfer) GetTransfersHistory(userID int64) (transfersHistory []models.Transfer, err error) {
+	query := `SELECT th.id, u.name, u.document, th.description, th.value, 'RECEIVED' as transfer_type
+	FROM transfers_history th
+	INNER JOIN users u ON (th.fk_payee_id=u.id)
+	where u.id = $1
+	
+	UNION
+	
+	SELECT th.id, u.name, u.document, th.description, th.value, 'SENT' as transfer_type
+	FROM transfers_history th
+	INNER JOIN users u ON (th.fk_payer_id=u.id)
+	where u.id = $1`
+
+	data, err := database.DB.Query(query, userID)
+
+	if err != nil {
+		return []models.Transfer{}, err
+	}
+
+	for data.Next() {
+		var t models.Transfer
+		data.Scan(
+			&t.ID,
+			&t.UserName,
+			&t.UserDocument,
+			&t.Description,
+			&t.Value,
+			&t.Type,
+		)
+		transfersHistory = append(transfersHistory, t)
+	}
+
+	return
 }

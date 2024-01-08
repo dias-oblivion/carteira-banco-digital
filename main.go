@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/dias-oblivion/PicPay-Simplificado/api"
-	"github.com/dias-oblivion/PicPay-Simplificado/database"
+	"github.com/dias-oblivion/carteira-banco-digital/api"
+	"github.com/dias-oblivion/carteira-banco-digital/database"
 )
 
 func main() {

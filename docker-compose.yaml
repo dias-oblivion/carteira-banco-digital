@@ -6,18 +6,18 @@ services:
     environment:
       POSTGRES_PASSWORD: admin
       POSTGRES_USER: admin
-      POSTGRES_DB: picpay
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-d", "picpay", "-h", "postgres", "-U", "admin"]
+      test: ["CMD", "pg_isready", "-q", "-d", "postgres", "-h", "postgres", "-U", "admin"]
       interval: 5s
       timeout: 60s
       retries: 5
 
   migrate:
     image: migrate/migrate:latest
-    command: ["-path", "/app/migrations", "-database", "postgres://admin:admin@postgres:5432/picpay?sslmode=disable", "up"]
+    command: ["-path", "/app/migrations", "-database", "postgres://admin:admin@postgres:5432/postgres?sslmode=disable", "up"]
     volumes:
       - ./database/migrations:/app/migrations
     depends_on:

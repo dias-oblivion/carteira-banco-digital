@@ -3,14 +3,14 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/dias-oblivion/PicPay-Simplificado/api/services"
-	request "github.com/dias-oblivion/PicPay-Simplificado/api/types/request"
+	"github.com/dias-oblivion/carteira-banco-digital/api/services"
+	request "github.com/dias-oblivion/carteira-banco-digital/api/types/request"
 	"github.com/gin-gonic/gin"
 )
 
 type User struct{}
 
-func (User) CreateUser(ctx *gin.Context) {
+func (User) PostCreateUser(ctx *gin.Context) {
 	var user request.CreateUser
 	if err := ctx.ShouldBindJSON(&user); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -23,10 +23,10 @@ func (User) CreateUser(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"id": userId})
+	ctx.JSON(http.StatusCreated, gin.H{"id": userId})
 }
 
-func (User) Login(ctx *gin.Context) {
+func (User) PostLogin(ctx *gin.Context) {
 	var credentials request.Login
 	if err := ctx.ShouldBindJSON(&credentials); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

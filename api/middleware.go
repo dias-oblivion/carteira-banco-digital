@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/dias-oblivion/PicPay-Simplificado/api/utils"
+	"github.com/dias-oblivion/carteira-banco-digital/api/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,7 +13,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		var bearerToken string
 
 		if authorizationHeader := ctx.Request.Header.Get("Authorization"); authorizationHeader == "" {
-			ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication Header Not Found"})
+			ctx.JSON(http.StatusUnauthorized, gin.H{"error": "authentication header not found"})
 			ctx.Abort()
 			return
 		}
@@ -22,12 +22,12 @@ func AuthMiddleware() gin.HandlerFunc {
 			bearerToken = strings.Split(ctx.Request.Header.Get("Authorization"), " ")[1]
 			err := utils.VerifyJWTToken(bearerToken)
 			if err != nil {
-				ctx.String(http.StatusUnauthorized, "Unauthorized")
+				ctx.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
 				ctx.Abort()
 				return
 			}
 		} else {
-			ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Authentication Header"})
+			ctx.JSON(http.StatusUnauthorized, gin.H{"error": "invalid authentication header"})
 			ctx.Abort()
 			return
 		}
