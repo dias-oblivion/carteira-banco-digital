@@ -24,6 +24,7 @@ func (User) PostCreateUser(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusCreated, gin.H{"id": userId})
+	return
 }
 
 func (User) PostLogin(ctx *gin.Context) {
@@ -37,7 +38,9 @@ func (User) PostLogin(ctx *gin.Context) {
 
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"token": token})
+	return
 }

@@ -54,3 +54,41 @@ func (User) GetUserByEmail(email string) (user models.User, err error) {
 
 	return
 }
+
+func (User) GetUserByDocument(document string) (user models.User, err error) {
+	query := `SELECT
+					id,
+					name,
+					document,
+					email,
+					password,
+					role,
+					balance,
+					created_at
+				FROM 
+					users
+				WHERE
+					document = $1
+				LIMIT 1`
+
+	data, err := database.DB.Query(query, document)
+
+	if err != nil {
+		return
+	}
+
+	for data.Next() {
+		data.Scan(
+			&user.ID,
+			&user.Name,
+			&user.Document,
+			&user.Email,
+			&user.Password,
+			&user.Role,
+			&user.Balance,
+			&user.Created_at,
+		)
+	}
+
+	return
+}

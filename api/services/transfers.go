@@ -8,6 +8,7 @@ import (
 	request "github.com/dias-oblivion/carteira-banco-digital/api/types/request"
 	types "github.com/dias-oblivion/carteira-banco-digital/api/types/response"
 	"github.com/dias-oblivion/carteira-banco-digital/database/repositories"
+	"github.com/jinzhu/copier"
 )
 
 type Transfer struct{}
@@ -35,10 +36,14 @@ func (Transfer) TransferBalance(userID int64, transfer request.TransferRequest) 
 	return nil
 }
 
-func (Transfer) GetTransfersHistoryList(userID int64) (types.TransferHistoryResponse, error) {
+func (Transfer) GetTransfersHistoryList(userID int64) ([]types.TransferHistoryResponse, error) {
 	transfersHistory, err := repositories.Transfer{}.GetTransfersHistory(userID)
 	if err != nil {
-		return
+		return []types.TransferHistoryResponse{}, err
 	}
 
+	var transferHistoryResponse []types.TransferHistoryResponse
+	copier.Copy(&transferHistoryResponse, &transfersHistory)
+
+	return transferHistoryResponse, nil
 }

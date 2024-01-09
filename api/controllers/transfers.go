@@ -34,7 +34,7 @@ func (Transfer) PostTransferBalance(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusCreated, gin.H{"status": "transfer completed successfully"})
-
+	return
 }
 
 func (Transfer) GetTransfersHistoryList(ctx *gin.Context) {
@@ -60,5 +60,5 @@ func (Transfer) GetTransfersHistoryList(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"data": transfersHistory})
-
+	return
 }

@@ -12,5 +12,6 @@ type TransferRequest struct {
 }
 
 type TransfersHistoryListRequest struct {
-	PaginationListRequest
+	Limit  int64 `json:"limit" binding:"required"`
+	Offset int64 `json:"offset"`
 }

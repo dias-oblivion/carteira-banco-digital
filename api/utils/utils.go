@@ -32,7 +32,7 @@ func CreateJWTToken(userId int64, userEmail, userRole string) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["userId"] = userId
 	claims["userEmail"] = userEmail
-	claims["role"] = userRole
+	claims["userRole"] = userRole
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString([]byte(config.API_SECRET))

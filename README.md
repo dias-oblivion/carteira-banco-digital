@@ -1,6 +1,6 @@
 # Carteira-Banco Digital
 
-Esse projeto é uma implementação de um desafio para uma vaga de backend, o objetivo do desafio é implementar um serviço de carteira digital onde os usuários poderão transferir valores, realizar pagamentos em estabelecimentos, optei por desenvolver um frontend para praticar outras skills utilizando o mesmo projeto.
+Esse projeto é uma implementação de um desafio para uma vaga de backend, o objetivo do desafio é implementar um serviço de carteira digital onde os usuários poderão transferir valores e realizar pagamentos em estabelecimentos, optei por desenvolver um frontend para praticar outras skills utilizando o mesmo projeto.
 
 ### 🕵️‍♂️ Link para o frontend:
 

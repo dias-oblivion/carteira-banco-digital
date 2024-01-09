@@ -23,6 +23,8 @@ func (User) CreateUser(user request.CreateUser) (userId int, err error) {
 		return 0, errors.New("error: email already registered")
 	}
 
+	userRegistered, err = repositories.User{}.GetUserByDocument(user.Document)
+
 	if userRegistered.Document == user.Document {
 		return 0, errors.New("error: document number already registered")
 	}
@@ -45,6 +47,10 @@ func (User) Login(credentials request.Login) (token string, err error) {
 	user, err := repositories.User{}.GetUserByEmail(credentials.Email)
 	if err != nil {
 		return
+	}
+
+	if user.ID == 0 {
+		return "", errors.New("error: user not found")
 	}
 
 	if err = utils.CheckPassword(credentials.Password, user.Password); err != nil {
